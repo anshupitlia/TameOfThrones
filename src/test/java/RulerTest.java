@@ -8,8 +8,8 @@ import static org.junit.Assert.*;
 public class RulerTest {
     @Test
     public void testRulerHasANameAndAlliesKingdom() {
-        Kingdom air = new Kingdom("Air");
-        Kingdom water = new Kingdom("Water");
+        Kingdom air = new Kingdom("Air", "Owl");
+        Kingdom water = new Kingdom("Water", "Octopus");
 
         ArrayList<Kingdom> expectedAllies = new ArrayList<>();
         expectedAllies.add(air);
