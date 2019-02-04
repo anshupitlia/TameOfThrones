@@ -15,13 +15,13 @@ public class KingdomTest {
 
     @Test
     public void testKingdomWouldBeAnAllyIfMessageContainsEmblemName() {
-        Kingdom space = new Kingdom("air", "owl");
-        assert space.isAlly("o111w222l333") == true;
+        Kingdom air = new Kingdom("air", "owl");
+        assert air.isAlly("o111w222l333") == true;
     }
 
     @Test
     public void testKingdomWouldNotBeAnAllyIfMessageDoesNotContainEmblemName() {
-        Kingdom space = new Kingdom("air", "owl");
-        assert space.isAlly("o111w222333") == false;
+        Kingdom air = new Kingdom("air", "owl");
+        assert air.isAlly("o111w222333") == false;
     }
 }
