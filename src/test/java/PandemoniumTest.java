@@ -6,4 +6,10 @@ public class PandemoniumTest {
         Pandemonium ruler = new Pandemonium();
         assert ruler.displayName() == "None";
     }
+
+    @Test
+    public void testPandemoniumHasNoAllies() {
+        Pandemonium ruler = new Pandemonium();
+        assert ruler.displayAllies() == "None";
+    }
 }
