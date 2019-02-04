@@ -18,3 +18,7 @@ emblem. For example, secret message to the Land kingdom (emblem: Panda) needs to
 1. Java 1.8 or higher (Developed and tested on Java 1.8)
 1. Maven
 
+## Run Tests
+```
+mvn test
+```
