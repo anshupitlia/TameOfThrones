@@ -5,11 +5,12 @@ public class Utils {
         HashMap<Character, Integer> countMap = new HashMap<>();
         char[] charArray = string.toCharArray();
         for (char c : charArray) {
-            if (countMap.containsKey(c)) {
-                countMap.put(c, countMap.get(c) + 1);
+            char lowerChar = Character.toLowerCase(c);
+            if (countMap.containsKey(lowerChar)) {
+                countMap.put(lowerChar, countMap.get(lowerChar) + 1);
             }
             else {
-                countMap.put(c, 1);
+                countMap.put(lowerChar, 1);
             }
         }
         return countMap;

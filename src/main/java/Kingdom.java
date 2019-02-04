@@ -22,7 +22,7 @@ public class Kingdom {
             HashMap<Character, Integer> messageCharCountMap = Utils.charCountMap(message);
             HashMap<Character, Integer> emblemCharCountMap = Utils.charCountMap(emblem);
             for(Map.Entry entry : emblemCharCountMap.entrySet()) {
-                if (messageCharCountMap.getOrDefault(entry.getKey(), 0) != entry.getValue()) {
+                if (messageCharCountMap.getOrDefault(entry.getKey(), 0).intValue() < ((Integer) entry.getValue()).intValue()) {
                     return false;
                 }
             }

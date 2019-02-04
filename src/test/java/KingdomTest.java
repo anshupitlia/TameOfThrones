@@ -24,4 +24,16 @@ public class KingdomTest {
         Kingdom air = new Kingdom("air", "owl");
         assert air.isAlly("o111w222333") == false;
     }
+
+    @Test
+    public void testKingdomWouldBeAnAllyIfMessageContainDoubleEmblemName() {
+        Kingdom air = new Kingdom("air", "owl");
+        assert air.isAlly("owlowl") == true;
+    }
+
+    @Test
+    public void testKingdomWouldBeAnAllyIfMessageContainEmblemNameInAnyCase() {
+        Kingdom air = new Kingdom("air", "owl");
+        assert air.isAlly("OWL") == true;
+    }
 }

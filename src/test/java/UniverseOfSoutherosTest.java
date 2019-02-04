@@ -72,4 +72,34 @@ public class UniverseOfSoutherosTest {
         assert universe.rulerDisplay() == "None";
         Assert.assertEquals(universe.alliesDisplay(), "None");
     }
+
+
+    @Test
+    public void testUniverseOfSoutherosDecidesShanAsRulerIfHeHasThreeAllies1() {
+        ArrayList<Kingdom> kingdoms = new ArrayList<>();
+        Kingdom land = new Kingdom("land", "panda");
+        Kingdom water = new Kingdom("water", "octopus");
+        Kingdom ice = new Kingdom("ice", "mammoth");
+        Kingdom air = new Kingdom("air", "owl");
+        Kingdom fire = new Kingdom("fire", "dragon");
+        Kingdom space = new Kingdom("space", "gorilla");
+        kingdoms.add(land);
+        kingdoms.add(water);
+        kingdoms.add(ice);
+        kingdoms.add(air);
+        kingdoms.add(fire);
+        kingdoms.add(space);
+        UniverseOfSoutheros universe = new UniverseOfSoutheros(kingdoms);
+
+        universe.sends(air, "Let’s swing the sword together");
+        universe.sends(land, "Die or play the tame of thrones");
+        universe.sends(ice, "Ahoy! Fight for me with men and money");
+        universe.sends(water, "Summer is coming");
+        universe.sends(fire, "Drag on Martin!");
+
+        universe.findRuler();
+
+        assert universe.rulerDisplay() == "Shan";
+        Assert.assertEquals(universe.alliesDisplay(), "air, land, ice, fire");
+    }
 }
