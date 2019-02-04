@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Kingdom {
     private final String name;
     private final String emblem;
@@ -13,7 +16,17 @@ public class Kingdom {
 
     public boolean isAlly(String message) {
         if (message == emblem)
-            return true;
-        else return false;
+          return true;
+        else
+        {
+            HashMap<Character, Integer> messageCharCountMap = Utils.charCountMap(message);
+            HashMap<Character, Integer> emblemCharCountMap = Utils.charCountMap(emblem);
+            for(Map.Entry entry : emblemCharCountMap.entrySet()) {
+                if (messageCharCountMap.getOrDefault(entry.getKey(), 0) != entry.getValue()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
