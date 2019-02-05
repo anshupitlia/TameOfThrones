@@ -9,6 +9,7 @@ public class Kingdom {
     private final String emblem;
     private final ArrayList<Kingdom> allies;
     private boolean isCompeting;
+    private boolean allied;
 
     public Kingdom() {
         name = "None";
@@ -51,19 +52,17 @@ public class Kingdom {
     }
 
     public boolean isAlly(String message) {
+        if (this.allied) return false;
         if (this.isCompeting) return false;
-        if (message == emblem)
-          return true;
-        else
-        {
-            HashMap<Character, Integer> messageCharCountMap = Utils.charCountMap(message);
-            HashMap<Character, Integer> emblemCharCountMap = Utils.charCountMap(emblem);
-            for(Map.Entry entry : emblemCharCountMap.entrySet()) {
-                if (messageCharCountMap.getOrDefault(entry.getKey(), 0).intValue() < ((Integer) entry.getValue()).intValue()) {
-                    return false;
-                }
+        HashMap<Character, Integer> messageCharCountMap = Utils.charCountMap(message);
+        HashMap<Character, Integer> emblemCharCountMap = Utils.charCountMap(emblem);
+        for(Map.Entry entry : emblemCharCountMap.entrySet()) {
+            if (messageCharCountMap.getOrDefault(entry.getKey(), 0).intValue() < ((Integer) entry.getValue()).intValue()) {
+                return false;
             }
         }
+
+        this.allied = true;
         return true;
     }
 
