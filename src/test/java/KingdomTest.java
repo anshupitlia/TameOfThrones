@@ -3,21 +3,35 @@ import org.junit.Test;
 
 public class KingdomTest {
     @Test
-    public void testAKingdomHasANameAndEmblem() {
+    public void testAKingdomHasANameAndEmblemAndKnowsIfItsCompeting() {
         Kingdom space = new Kingdom("space", "gorilla");
         assert space.displayName() == "space";
     }
 
     @Test
-    public void testKingdomWouldBeAnAllyIfMessageIsEmblemName() {
+    public void testKingdomWouldBeAnAllyIfMessageIsEmblemNameAndItIsNotCompeting() {
         Kingdom space = new Kingdom("space", "gorilla");
         assert space.isAlly("gorilla") == true;
     }
 
     @Test
-    public void testKingdomWouldBeAnAllyIfMessageContainsEmblemName() {
+    public void testKingdomWouldNotBeAnAllyIfMessageIsEmblemNameButItIsCompeting() {
+        Kingdom space = new Kingdom("space", "gorilla");
+        space.markCompeting();
+        assert space.isAlly("gorilla") == false;
+    }
+
+    @Test
+    public void testKingdomWouldBeAnAllyIfMessageContainsEmblemNameAndIsNotCompeting() {
         Kingdom air = new Kingdom("air", "owl");
         assert air.isAlly("o111w222l333") == true;
+    }
+
+    @Test
+    public void testKingdomWouldNotBeAnAllyIfMessageContainsEmblemNameButIsCompeting() {
+        Kingdom air = new Kingdom("air", "owl");
+        air.markCompeting();
+        assert air.isAlly("o111w222l333") == false;
     }
 
     @Test

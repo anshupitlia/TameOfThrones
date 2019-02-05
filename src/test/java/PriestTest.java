@@ -66,4 +66,23 @@ public class PriestTest {
         assert priest.rulerDisplay() == "space";
         Assert.assertEquals(priest.alliesDisplay(), "air, land, ice, fire");
     }
+
+
+    @Test
+    public void testPriestDecidesNoneAsRulerIfSpaceHasThreeAlliesButOneOfThemIsCompeting() {
+        Kingdom land = new Kingdom("land", "panda");
+        Kingdom ice = new Kingdom("ice", "mammoth");
+        Kingdom air = new Kingdom("air", "owl");
+        Kingdom space = new Kingdom("space", "gorilla");
+        CompetingKingdoms competingKingdoms = new CompetingKingdoms().add(space).add(air);
+        Priest priest = new Priest(competingKingdoms);
+
+        space.sends(air, "oaaawaaala");
+        space.sends(land, "a1d22n333a4444p");
+        space.sends(ice, "zmzmzmzaztzozh");
+        priest.updateRuler();
+
+        Assert.assertEquals("None", priest.rulerDisplay());
+        Assert.assertEquals("None", priest.alliesDisplay());
+    }
 }

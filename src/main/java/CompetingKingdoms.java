@@ -9,6 +9,7 @@ public class CompetingKingdoms {
 
     public CompetingKingdoms add(Kingdom kingdom) {
         this.competitors.add(kingdom);
+        kingdom.markCompeting();
         return this;
     }
 

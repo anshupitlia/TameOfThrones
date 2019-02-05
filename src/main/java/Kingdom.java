@@ -8,17 +8,20 @@ public class Kingdom {
     private final String name;
     private final String emblem;
     private final ArrayList<Kingdom> allies;
+    private boolean isCompeting;
 
     public Kingdom() {
         name = "None";
         emblem = "None";
         allies = new ArrayList<>();
+        isCompeting = false;
     }
 
     public Kingdom(String name, String emblem) {
         this.name = name;
         this.emblem = emblem;
         this.allies = new ArrayList<>();
+        this.isCompeting = false;
     }
 
     public void sends(Kingdom receiver, String msg) {
@@ -48,6 +51,7 @@ public class Kingdom {
     }
 
     public boolean isAlly(String message) {
+        if (this.isCompeting) return false;
         if (message == emblem)
           return true;
         else
@@ -62,7 +66,7 @@ public class Kingdom {
         }
         return true;
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,5 +78,9 @@ public class Kingdom {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    public void markCompeting() {
+        this.isCompeting = true;
     }
 }
