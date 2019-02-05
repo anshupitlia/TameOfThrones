@@ -25,4 +25,30 @@ public class CompetingKingdoms implements Iterable<Kingdom>{
         }
         return new Kingdom();
     }
+//
+//    public String competitorsAlliesDisplay() {
+//        StringBuilder output = new StringBuilder();
+//        Iterator<Kingdom> iterator = competingKingdoms.iterator();
+//        while(iterator.hasNext()) {
+//            Kingdom kingdom = iterator.next();
+//            output.append("Allies for ");
+//            output.append(kingdom.displayName());
+//            output.append(": ");
+//            output.append(kingdom.allyCount());
+//            output.append("\n");
+//        }
+//        return output.toString();
+//    }
+
+    public String alliesDisplay() {
+        StringBuilder output = new StringBuilder();
+        competitors.forEach(kingdom -> {
+            output.append("Allies for ");
+            output.append(kingdom.displayName());
+            output.append(": ");
+            output.append(kingdom.allyCount());
+            output.append("\n");
+        });
+        return output.toString();
+    }
 }
