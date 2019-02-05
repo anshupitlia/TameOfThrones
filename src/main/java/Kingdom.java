@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Kingdom {
@@ -20,8 +21,16 @@ public class Kingdom {
         this.allies = new ArrayList<>();
     }
 
+    public void sends(Kingdom receiver, String msg) {
+        if(receiver.isAlly(msg)) {
+            this.addAlly(receiver);
+        }
+    }
+
     public void addAlly(Kingdom kingdom) {
-        this.allies.add(kingdom);
+        if (!this.allies.contains(kingdom)) {
+            this.allies.add(kingdom);
+        }
     }
 
     public String displayName() {
@@ -52,5 +61,18 @@ public class Kingdom {
             }
         }
         return true;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Kingdom kingdom = (Kingdom) o;
+        return Objects.equals(name, kingdom.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

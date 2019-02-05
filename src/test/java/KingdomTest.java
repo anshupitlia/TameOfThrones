@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 public class KingdomTest {
@@ -35,5 +36,14 @@ public class KingdomTest {
     public void testKingdomWouldBeAnAllyIfMessageContainEmblemNameInAnyCase() {
         Kingdom air = new Kingdom("air", "owl");
         assert air.isAlly("OWL") == true;
+    }
+
+    @Test
+    public void testKingdomShouldNotAddAnAllyIfItAlreadyExistsAsAnAlly() {
+        Kingdom air = new Kingdom("air", "owl");
+        air.addAlly(new Kingdom("space", "gorilla"));
+        Assert.assertEquals("space", air.displayAllies());
+        air.addAlly(new Kingdom("space", "gorilla"));
+        Assert.assertEquals("space", air.displayAllies());
     }
 }

@@ -18,9 +18,9 @@ public class PriestTest {
         CompetingKingdoms competingKingdoms = new CompetingKingdoms().add(space);
         Priest priest = new Priest(competingKingdoms);
 
-        priest.sends(space, air, "oaaawaaala");
-        priest.sends(space, land, "a1d22n333a4444p");
-        priest.sends(space, ice, "zmzmzmzaztzozh");
+        space.sends(air, "oaaawaaala");
+        space.sends(land, "a1d22n333a4444p");
+        space.sends(ice, "zmzmzmzaztzozh");
         priest.updateRuler();
 
         Assert.assertEquals("space", priest.rulerDisplay());
@@ -35,8 +35,8 @@ public class PriestTest {
         CompetingKingdoms competingKingdoms = new CompetingKingdoms().add(space);
         Priest priest = new Priest(competingKingdoms);
 
-        priest.sends(space, air, "oaaawaaala");
-        priest.sends(space, land, "a1d22n333a4444p");
+        space.sends(air, "oaaawaaala");
+        space.sends(land, "a1d22n333a4444p");
         priest.updateRuler();
 
         Assert.assertEquals("None", priest.rulerDisplay());
@@ -56,11 +56,11 @@ public class PriestTest {
 
         Priest priest = new Priest(competingKingdoms);
 
-        priest.sends(space, air, "Let’s swing the sword together");
-        priest.sends(space, land, "Die or play the tame of thrones");
-        priest.sends(space, ice, "Ahoy! Fight for me with men and money");
-        priest.sends(space, water, "Summer is coming");
-        priest.sends(space, fire, "Drag on Martin!");
+        space.sends(air, "Let’s swing the sword together");
+        space.sends(land, "Die or play the tame of thrones");
+        space.sends(ice, "Ahoy! Fight for me with men and money");
+        space.sends(water, "Summer is coming");
+        space.sends(fire, "Drag on Martin!");
 
         priest.updateRuler();
         assert priest.rulerDisplay() == "space";

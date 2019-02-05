@@ -7,23 +7,13 @@ public class Priest {
     public static final int WINNING_CRITERIA = 3;
 
     public Priest() {
-        this.allKingdoms.add(new Kingdom("land", "panda"));
-        this.allKingdoms.add(new Kingdom("water", "octopus"));
-        this.allKingdoms.add(new Kingdom("ice", "mammoth"));
-        this.allKingdoms.add(new Kingdom("air", "owl"));
-        this.allKingdoms.add(new Kingdom("fire", "dragon"));
-        this.allKingdoms.add(new Kingdom("space", "gorilla"));
+        initKingdoms();
         this.competingKingdoms = new CompetingKingdoms();
         this.ruler = new Ruler();
     }
 
     public Priest(CompetingKingdoms competingKingdoms) {
-        this.allKingdoms.add(new Kingdom("land", "panda"));
-        this.allKingdoms.add(new Kingdom("water", "octopus"));
-        this.allKingdoms.add(new Kingdom("ice", "mammoth"));
-        this.allKingdoms.add(new Kingdom("air", "owl"));
-        this.allKingdoms.add(new Kingdom("fire", "dragon"));
-        this.allKingdoms.add(new Kingdom("space", "gorilla"));
+        initKingdoms();
         this.competingKingdoms = competingKingdoms;
         this.ruler = new Ruler();
     }
@@ -36,14 +26,17 @@ public class Priest {
         return ruler.displayAllies();
     }
 
-    public void sends(Kingdom sender, Kingdom receiver, String msg) {
-        if(receiver.isAlly(msg)) {
-            sender.addAlly(receiver);
-        }
-    }
-
     public void updateRuler() {
         Kingdom rulingKingdom = competingKingdoms.rulingKingdom();
         ruler = new Ruler(rulingKingdom);
+    }
+
+    private void initKingdoms() {
+        this.allKingdoms.add(new Kingdom("land", "panda"));
+        this.allKingdoms.add(new Kingdom("water", "octopus"));
+        this.allKingdoms.add(new Kingdom("ice", "mammoth"));
+        this.allKingdoms.add(new Kingdom("air", "owl"));
+        this.allKingdoms.add(new Kingdom("fire", "dragon"));
+        this.allKingdoms.add(new Kingdom("space", "gorilla"));
     }
 }
