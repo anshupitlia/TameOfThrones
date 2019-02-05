@@ -1,74 +1,69 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 public class PriestTest {
     @Test
-    public void testPriestTakesKingdomsCompetingToBeRuler() {
+    public void testPriestWhenNoOneCompetingToBeRuler() {
+        Priest priest = new Priest();
+        assert priest.rulerDisplay() == "None";
+        assert priest.alliesDisplay() == "None";
+    }
+
+    @Test
+    public void testPriestDecidesSpaceAsRulerIfHeHasThreeAllies() {
+        Kingdom land = new Kingdom("land", "panda");
         Kingdom ice = new Kingdom("ice", "mammoth");
         Kingdom air = new Kingdom("air", "owl");
         Kingdom space = new Kingdom("space", "gorilla");
+        CompetingKingdoms competingKingdoms = new CompetingKingdoms().add(space);
+        Priest priest = new Priest(competingKingdoms);
 
-        CompetingKingdoms competingKingdoms = new CompetingKingdoms();
-        competingKingdoms.add(ice).add(air).add(space);
+        priest.sends(space, air, "oaaawaaala");
+        priest.sends(space, land, "a1d22n333a4444p");
+        priest.sends(space, ice, "zmzmzmzaztzozh");
+        priest.updateRuler();
 
-        Priest universe = new Priest(competingKingdoms);
-        assert universe.rulerDisplay() == "None";
-        assert universe.alliesDisplay() == "None";
+        Assert.assertEquals("space", priest.rulerDisplay());
+        Assert.assertEquals("air, land, ice", priest.alliesDisplay());
     }
 
     @Test
-    public void testUniverseOfSoutherosDecidesShanAsRulerIfHeHasThreeAllies() {
-        Kingdom land = new Kingdom("land", "panda");
-        Kingdom ice = new Kingdom("ice", "mammoth");
-        Kingdom air = new Kingdom("air", "owl");
-        Priest universe = new Priest();
-
-        universe.sends(air, "oaaawaaala");
-        universe.sends(land, "a1d22n333a4444p");
-        universe.sends(ice, "zmzmzmzaztzozh");
-
-        universe.findRuler();
-
-        assert universe.rulerDisplay() == "Shan";
-        Assert.assertEquals(universe.alliesDisplay(), "air, land, ice");
-    }
-
-    @Test
-    public void testUniverseOfSoutherosDecidesShanAsRulerIfHeHasLessThanThreeAllies() {
+    public void testPriestDecidesNoneAsRulerIfHeHasLessThanThreeAllies() {
         Kingdom land = new Kingdom("land", "panda");
         Kingdom air = new Kingdom("air", "owl");
-        Priest universe = new Priest();
+        Kingdom space = new Kingdom("space", "gorilla");
+        CompetingKingdoms competingKingdoms = new CompetingKingdoms().add(space);
+        Priest priest = new Priest(competingKingdoms);
 
-        universe.sends(air, "oaaawaaala");
-        universe.sends(land, "a1d22n333a4444p");
+        priest.sends(space, air, "oaaawaaala");
+        priest.sends(space, land, "a1d22n333a4444p");
+        priest.updateRuler();
 
-        universe.findRuler();
-
-        assert universe.rulerDisplay() == "None";
-        Assert.assertEquals(universe.alliesDisplay(), "None");
+        Assert.assertEquals("None", priest.rulerDisplay());
+        Assert.assertEquals("None", priest.alliesDisplay());
     }
 
 
     @Test
-    public void testUniverseOfSoutherosDecidesShanAsRulerIfHeHasFourAllies() {
+    public void testPriestDecidesSpaceAsRulerIfHeHasFourAllies() {
         Kingdom land = new Kingdom("land", "panda");
+        Kingdom space = new Kingdom("space", "gorilla");
         Kingdom water = new Kingdom("water", "octopus");
         Kingdom ice = new Kingdom("ice", "mammoth");
         Kingdom air = new Kingdom("air", "owl");
         Kingdom fire = new Kingdom("fire", "dragon");
-        Priest universe = new Priest();
+        CompetingKingdoms competingKingdoms = new CompetingKingdoms().add(space);
 
-        universe.sends(air, "Let’s swing the sword together");
-        universe.sends(land, "Die or play the tame of thrones");
-        universe.sends(ice, "Ahoy! Fight for me with men and money");
-        universe.sends(water, "Summer is coming");
-        universe.sends(fire, "Drag on Martin!");
+        Priest priest = new Priest(competingKingdoms);
 
-        universe.findRuler();
+        priest.sends(space, air, "Let’s swing the sword together");
+        priest.sends(space, land, "Die or play the tame of thrones");
+        priest.sends(space, ice, "Ahoy! Fight for me with men and money");
+        priest.sends(space, water, "Summer is coming");
+        priest.sends(space, fire, "Drag on Martin!");
 
-        assert universe.rulerDisplay() == "Shan";
-        Assert.assertEquals(universe.alliesDisplay(), "air, land, ice, fire");
+        priest.updateRuler();
+        assert priest.rulerDisplay() == "space";
+        Assert.assertEquals(priest.alliesDisplay(), "air, land, ice, fire");
     }
 }

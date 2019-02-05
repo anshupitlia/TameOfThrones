@@ -1,19 +1,19 @@
-import java.util.stream.Collectors;
+public class Ruler {
+    private Kingdom kingdom;
 
-public class Ruler extends ARuler {
-
-    public Ruler(Pandemonium pandemonium) {
-        this.king = pandemonium.getKing();
-        this.allies = pandemonium.getAllies();
+    public Ruler() {
+        this.kingdom = new Kingdom();
     }
 
-    @Override
-    public String displayName() {
-        return king;
+    public Ruler(Kingdom kingdom) {
+        this.kingdom = kingdom;
     }
 
-    @Override
     public String displayAllies() {
-        return allies.stream().map(Kingdom::displayName).collect(Collectors.joining(", "));
+        return kingdom.displayAllies();
+    }
+
+    public String displayName() {
+        return kingdom.displayName();
     }
 }

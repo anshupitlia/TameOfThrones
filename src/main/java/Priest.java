@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Priest {
     private ArrayList<Kingdom> allKingdoms = new ArrayList<>();
     private CompetingKingdoms competingKingdoms;
-    private ARuler ruler;
+    private Ruler ruler;
     public static final int WINNING_CRITERIA = 3;
 
     public Priest() {
@@ -14,7 +14,7 @@ public class Priest {
         this.allKingdoms.add(new Kingdom("fire", "dragon"));
         this.allKingdoms.add(new Kingdom("space", "gorilla"));
         this.competingKingdoms = new CompetingKingdoms();
-        this.ruler = new Pandemonium();
+        this.ruler = new Ruler();
     }
 
     public Priest(CompetingKingdoms competingKingdoms) {
@@ -25,7 +25,7 @@ public class Priest {
         this.allKingdoms.add(new Kingdom("fire", "dragon"));
         this.allKingdoms.add(new Kingdom("space", "gorilla"));
         this.competingKingdoms = competingKingdoms;
-        this.ruler = new Pandemonium();
+        this.ruler = new Ruler();
     }
 
     public String rulerDisplay() {
@@ -36,15 +36,14 @@ public class Priest {
         return ruler.displayAllies();
     }
 
-    public void sends(Kingdom receiver, String msg) {
+    public void sends(Kingdom sender, Kingdom receiver, String msg) {
         if(receiver.isAlly(msg)) {
-            ruler.addAlly(receiver);
+            sender.addAlly(receiver);
         }
     }
 
-    public void findRuler() {
-        if (ruler.isWinningRuler() && ruler instanceof Pandemonium) {
-            ruler = new Ruler((Pandemonium) ruler);
-        }
+    public void updateRuler() {
+        Kingdom rulingKingdom = competingKingdoms.rulingKingdom();
+        ruler = new Ruler(rulingKingdom);
     }
 }

@@ -6,19 +6,17 @@ import static org.junit.Assert.assertEquals;
 
 public class RulerTest {
     @Test
-    public void testRulerHasANameAndAlliesKingdom() {
+    public void testRulerHasAKingdom() {
         Kingdom air = new Kingdom("Air", "Owl");
         Kingdom water = new Kingdom("Water", "Octopus");
-        ArrayList<Kingdom> expectedAllies = new ArrayList<>();
-        expectedAllies.add(air);
-        expectedAllies.add(water);
-        Pandemonium pandemonium =  new Pandemonium();
-        pandemonium.addAlly(air);
-        pandemonium.addAlly(water);
+        Kingdom space = new Kingdom("Space", "Gorilla");
 
-        Ruler ruler = new Ruler(pandemonium);
+        space.addAlly(air);
+        space.addAlly(water);
 
-        assertEquals(ruler.displayName(), "Shan");
+        Ruler ruler = new Ruler(space);
+
+        assertEquals(ruler.displayName(), "Space");
         assertEquals(ruler.displayAllies(), "Air, Water");
     }
 }
