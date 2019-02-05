@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 
 public class Pandemonium extends ARuler {
-    private ArrayList<Kingdom> allies;
-    private String king;
 
     public Pandemonium() {
         allies = new ArrayList<>();
@@ -17,21 +15,14 @@ public class Pandemonium extends ARuler {
         return allies;
     }
 
+    @Override
     public String displayName() {
         return "None";
     }
 
+    @Override
     public String displayAllies() {
         return "None";
     }
 
-    @Override
-    public void addAlly(Kingdom receiver) {
-        allies.add(receiver);
-    }
-
-    @Override
-    public boolean isWinningRuler() {
-        return allies.size() >= UniverseOfSoutheros.WINNING_CRITERIA;
-    }
 }
