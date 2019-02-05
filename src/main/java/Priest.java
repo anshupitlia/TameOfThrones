@@ -19,11 +19,15 @@ public class Priest {
         this.ruler = new Ruler();
     }
 
+    public String competitorsAlliesDisplay() {
+        return competingKingdoms.alliesDisplay();
+    }
+
     public String rulerDisplay() {
         return ruler.displayName();
     }
 
-    public String alliesDisplay() {
+    public String rulerAlliesDisplay() {
         return ruler.displayAllies();
     }
 
@@ -35,6 +39,7 @@ public class Priest {
                 competitorKingdom.sends(kingdom, new Ballot().message());
             }
         }
+        ruler = new Ruler(competingKingdoms.rulingKingdom());
     }
 
     private void initKingdoms() {
@@ -44,9 +49,5 @@ public class Priest {
         this.allKingdoms.add(new Kingdom("air", "owl"));
         this.allKingdoms.add(new Kingdom("fire", "dragon"));
         this.allKingdoms.add(new Kingdom("space", "gorilla"));
-    }
-
-    public String competitorsAlliesDisplay() {
-        return competingKingdoms.alliesDisplay();
     }
 }

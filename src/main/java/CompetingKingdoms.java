@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 
 public class CompetingKingdoms implements Iterable<Kingdom>{
@@ -20,25 +21,10 @@ public class CompetingKingdoms implements Iterable<Kingdom>{
     }
 
     public Kingdom rulingKingdom() {
-        if (this.competitors.get(0).isWinningRuler()) {
-            return this.competitors.get(0);
-        }
-        return new Kingdom();
+        Kingdom kingdom;
+        kingdom = competitors.stream().max(Comparator.comparing(intermediateKingdom -> intermediateKingdom.allyCount())).get();
+        return kingdom;
     }
-//
-//    public String competitorsAlliesDisplay() {
-//        StringBuilder output = new StringBuilder();
-//        Iterator<Kingdom> iterator = competingKingdoms.iterator();
-//        while(iterator.hasNext()) {
-//            Kingdom kingdom = iterator.next();
-//            output.append("Allies for ");
-//            output.append(kingdom.displayName());
-//            output.append(": ");
-//            output.append(kingdom.allyCount());
-//            output.append("\n");
-//        }
-//        return output.toString();
-//    }
 
     public String alliesDisplay() {
         StringBuilder output = new StringBuilder();

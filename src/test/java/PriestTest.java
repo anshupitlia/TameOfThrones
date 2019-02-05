@@ -6,7 +6,7 @@ public class PriestTest {
     public void testPriestWhenNoOneCompetingToBeRuler() {
         Priest priest = new Priest();
         assert priest.rulerDisplay() == "None";
-        assert priest.alliesDisplay() == "None";
+        assert priest.rulerAlliesDisplay() == "None";
     }
 
     @Test
@@ -17,8 +17,8 @@ public class PriestTest {
 
         priest.conductElections();
         Assert.assertTrue(priest.competitorsAlliesDisplay().matches("Allies for space: \\d+\n"));
-        //Assert.assertEquals("space", priest.rulerDisplay());
-        //Assert.assertEquals("air, land, ice", priest.alliesDisplay());
+        Assert.assertEquals("space", priest.rulerDisplay());
+        //Assert.assertEquals("air, land, ice", priest.rulerAlliesDisplay());
     }
 
 //    @Test
@@ -34,7 +34,7 @@ public class PriestTest {
 //        priest.conductElections();
 //
 //        Assert.assertEquals("None", priest.rulerDisplay());
-//        Assert.assertEquals("None", priest.alliesDisplay());
+//        Assert.assertEquals("None", priest.rulerAlliesDisplay());
 //    }
 //
 //
@@ -58,7 +58,7 @@ public class PriestTest {
 //
 //        priest.conductElections();
 //        assert priest.rulerDisplay() == "space";
-//        Assert.assertEquals(priest.alliesDisplay(), "air, land, ice, fire");
+//        Assert.assertEquals(priest.rulerAlliesDisplay(), "air, land, ice, fire");
 //    }
 //
 //
@@ -77,6 +77,6 @@ public class PriestTest {
 //        priest.conductElections();
 //
 //        Assert.assertEquals("None", priest.rulerDisplay());
-//        Assert.assertEquals("None", priest.alliesDisplay());
+//        Assert.assertEquals("None", priest.rulerAlliesDisplay());
 //    }
 }
