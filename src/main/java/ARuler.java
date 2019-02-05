@@ -18,6 +18,6 @@ public class ARuler {
      }
 
      public boolean isWinningRuler() {
-          return allies.size() >= UniverseOfSoutheros.WINNING_CRITERIA;
+          return allies.size() >= Priest.WINNING_CRITERIA;
      }
 }
