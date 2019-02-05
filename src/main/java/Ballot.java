@@ -33,5 +33,4 @@ public class Ballot {
         Random random = new Random();
         return messages[random.nextInt(messages.length)];
     }
-
 }

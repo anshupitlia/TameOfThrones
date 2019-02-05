@@ -1,7 +1,13 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class CompetingKingdoms {
+public class CompetingKingdoms implements Iterable<Kingdom>{
     private ArrayList<Kingdom> competitors;
+
+    @Override
+    public Iterator<Kingdom> iterator() {
+        return competitors.iterator();
+    }
 
     public CompetingKingdoms() {
         this.competitors = new ArrayList<>();

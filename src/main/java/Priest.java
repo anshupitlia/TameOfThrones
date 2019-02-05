@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Priest {
     private ArrayList<Kingdom> allKingdoms = new ArrayList<>();
@@ -26,9 +27,14 @@ public class Priest {
         return ruler.displayAllies();
     }
 
-    public void updateRuler() {
-        Kingdom rulingKingdom = competingKingdoms.rulingKingdom();
-        ruler = new Ruler(rulingKingdom);
+    public void conductElections() {
+        Iterator<Kingdom> iterator = competingKingdoms.iterator();
+        while(iterator.hasNext()) {
+            Kingdom competitorKingdom = iterator.next();
+            for (Kingdom kingdom: allKingdoms) {
+                competitorKingdom.sends(kingdom, new Ballot().message());
+            }
+        }
     }
 
     private void initKingdoms() {
@@ -38,5 +44,19 @@ public class Priest {
         this.allKingdoms.add(new Kingdom("air", "owl"));
         this.allKingdoms.add(new Kingdom("fire", "dragon"));
         this.allKingdoms.add(new Kingdom("space", "gorilla"));
+    }
+
+    public String competitorsAlliesDisplay() {
+        StringBuilder output = new StringBuilder();
+        Iterator<Kingdom> iterator = competingKingdoms.iterator();
+        while(iterator.hasNext()) {
+            Kingdom kingdom = iterator.next();
+            output.append("Allies for ");
+            output.append(kingdom.displayName());
+            output.append(": ");
+            output.append(kingdom.allyCount());
+            output.append("\n");
+        }
+        return output.toString();
     }
 }

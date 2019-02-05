@@ -82,4 +82,8 @@ public class Kingdom {
     public void markCompeting() {
         this.isCompeting = true;
     }
+
+    public int allyCount() {
+        return allies.size();
+    }
 }
