@@ -1,7 +1,17 @@
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.mockito.Mockito.when;
+
+@RunWith(MockitoJUnitRunner.class)
 public class PriestTest {
+
+    @Mock
+    private Ballot ballot;
+
     @Test
     public void testPriestWhenNoOneCompetingToBeRuler() {
         Priest priest = new Priest();
@@ -10,31 +20,35 @@ public class PriestTest {
     }
 
     @Test
-    public void testPriestConductsElectionsAndShowsSpaceHasNumberOfAllies() {
+    public void testPriestConductsElectionsAndShowsSpaceHas3Allies() {
         Kingdom space = new Kingdom("space", "gorilla");
         CompetingKingdoms competingKingdoms = new CompetingKingdoms().add(space);
         Priest priest = new Priest(competingKingdoms);
 
-        priest.conductElections();
-        Assert.assertTrue(priest.competitorsAlliesDisplay().matches("Allies for space: \\d+\n"));
+        when(ballot.message()).thenReturn("panda", "", "mammoth", "owl", "", "");
+        priest.conductElections(ballot);
+
+        Assert.assertEquals("Allies for space: 3\n", priest.competitorsAlliesDisplay());
         Assert.assertEquals("space", priest.rulerDisplay());
-        //Assert.assertEquals("air, land, ice", priest.rulerAlliesDisplay());
+        Assert.assertEquals("land, ice, air", priest.rulerAlliesDisplay());
     }
 
 //    @Test
-//    public void testPriestDecidesNoneAsRulerIfHeHasLessThanThreeAllies() {
-//        Kingdom land = new Kingdom("land", "panda");
+//    public void testPriestDecidesIceAsRulerIfItHasMaxAllies() {
+//        Kingdom ice = new Kingdom("ice", "mammoth");
 //        Kingdom air = new Kingdom("air", "owl");
 //        Kingdom space = new Kingdom("space", "gorilla");
-//        CompetingKingdoms competingKingdoms = new CompetingKingdoms().add(space);
+//        CompetingKingdoms competingKingdoms = new CompetingKingdoms().add(ice).add(space).add(air);
 //        Priest priest = new Priest(competingKingdoms);
 //
-//        space.sends(air, "oaaawaaala");
-//        space.sends(land, "a1d22n333a4444p");
-//        priest.conductElections();
+//        when(ballot.message()).thenReturn("panda", "", "", "", "dragon", "");
+//        when(ballot.message()).thenReturn("octopus", "", "", "", "", "");
+//        when(ballot.message()).thenReturn("","", "", "", "", "");
+//        priest.conductElections(ballot);
 //
-//        Assert.assertEquals("None", priest.rulerDisplay());
-//        Assert.assertEquals("None", priest.rulerAlliesDisplay());
+//        Assert.assertEquals("Allies for ice: 2\nAllies for space: 1\nAllies for air: 0\n", priest.competitorsAlliesDisplay());
+//        Assert.assertEquals("ice", priest.rulerDisplay());
+//        Assert.assertEquals("land, fire", priest.rulerAlliesDisplay());
 //    }
 //
 //

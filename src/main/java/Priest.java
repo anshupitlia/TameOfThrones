@@ -31,12 +31,12 @@ public class Priest {
         return ruler.displayAllies();
     }
 
-    public void conductElections() {
+    public void conductElections(Ballot ballot) {
         Iterator<Kingdom> iterator = competingKingdoms.iterator();
         while(iterator.hasNext()) {
             Kingdom competitorKingdom = iterator.next();
             for (Kingdom kingdom: allKingdoms) {
-                competitorKingdom.sends(kingdom, new Ballot().message());
+                competitorKingdom.sends(kingdom, ballot.message());
             }
         }
         ruler = new Ruler(competingKingdoms.rulingKingdom());

@@ -47,10 +47,6 @@ public class Kingdom {
         else return "None";
     }
 
-    public boolean isWinningRuler() {
-          return allies.size() >= Priest.WINNING_CRITERIA;
-    }
-
     public boolean isAlly(String message) {
         if (this.allied) return false;
         if (this.isCompeting) return false;
