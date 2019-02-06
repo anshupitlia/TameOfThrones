@@ -14,7 +14,7 @@ public class PriestTest {
 
     @Test
     public void testPriestWhenNoOneCompetingToBeRuler() {
-        Priest priest = new Priest();
+        Priest priest = new Priest(new CompetingKingdoms());
         assert priest.rulerDisplay() == "None";
         assert priest.rulerAlliesDisplay() == "None";
     }

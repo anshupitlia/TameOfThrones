@@ -8,14 +8,6 @@ public class Priest {
     private StringBuilder result;
     private int electionCount;
 
-    public Priest() {
-        initKingdoms();
-        this.competingKingdoms = new CompetingKingdoms();
-        this.ruler = new Ruler();
-        this.electionCount = 0;
-        this.result = new StringBuilder();
-    }
-
     public Priest(CompetingKingdoms competingKingdoms) {
         initKingdoms();
         this.competingKingdoms = competingKingdoms;
