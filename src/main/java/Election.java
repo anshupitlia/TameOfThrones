@@ -1,27 +1,19 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Priest {
+public class Election {
     private ArrayList<Kingdom> allKingdoms = new ArrayList<>();
     private CompetingKingdoms competingKingdoms;
     private Ruler ruler;
     private StringBuilder result;
     private int electionCount;
 
-    public Priest(CompetingKingdoms competingKingdoms) {
+    public Election(CompetingKingdoms competingKingdoms) {
         initKingdoms();
         this.competingKingdoms = competingKingdoms;
         this.ruler = new Ruler();
         this.electionCount = 0;
         this.result = new StringBuilder();
-    }
-
-    public String competitorsAlliesDisplay() {
-        String roundInfo = String.format("Results after round %d ballot count\n", electionCount);
-        StringBuilder intermediateResults = new StringBuilder();
-        intermediateResults.append(roundInfo);
-        intermediateResults.append(competingKingdoms.alliesDisplay());
-        return intermediateResults.toString();
     }
 
     public String rulerDisplay() {
@@ -32,7 +24,19 @@ public class Priest {
         return ruler.displayAllies();
     }
 
-    public void conductElections(Ballot ballot) {
+    public String resultDisplay() {
+        return result.toString();
+    }
+
+    public String competitorsAlliesDisplay() {
+        String roundInfo = String.format("Results after round %d ballot count\n", electionCount);
+        StringBuilder intermediateResults = new StringBuilder();
+        intermediateResults.append(roundInfo);
+        intermediateResults.append(competingKingdoms.alliesDisplay());
+        return intermediateResults.toString();
+    }
+
+    public void conduct(Ballot ballot) {
         Iterator<Kingdom> iterator = competingKingdoms.iterator();
         this.electionCount++;
         while(iterator.hasNext()) {
@@ -45,18 +49,14 @@ public class Priest {
         findRulingKingdom(ballot);
     }
 
-    public String displayResult() {
-        return result.toString();
-    }
-
-    private void reconductElections(ArrayList<Kingdom> competingKingdoms, Ballot ballot) {
+    private void reconduct(ArrayList<Kingdom> competingKingdoms, Ballot ballot) {
         this.allKingdoms.forEach(kingdom -> kingdom.refreshAllegiance());
         this.competingKingdoms = new CompetingKingdoms();
         competingKingdoms.forEach(kingdom -> {
             kingdom.refreshAllegiance();
             this.competingKingdoms.add(kingdom);
         });
-        conductElections(ballot);
+        conduct(ballot);
     }
 
     private void findRulingKingdom(Ballot ballot) {
@@ -68,7 +68,7 @@ public class Priest {
         }
         if (totalRulingKingdoms > 1) {
             result.append(competitorsAlliesDisplay());
-            reconductElections(rulingKingdoms, ballot);
+            reconduct(rulingKingdoms, ballot);
         }
     }
 
