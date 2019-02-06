@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.Comparator.comparing;
 
 public class CompetingKingdoms implements Iterable<Kingdom>{
     private ArrayList<Kingdom> competitors;
@@ -20,10 +24,11 @@ public class CompetingKingdoms implements Iterable<Kingdom>{
         return this;
     }
 
-    public Kingdom rulingKingdom() {
-        Kingdom kingdom;
-        kingdom = competitors.stream().max(Comparator.comparing(intermediateKingdom -> intermediateKingdom.allyCount())).get();
-        return kingdom;
+    public  ArrayList<Kingdom> rulingKingdoms() {
+        ArrayList<Kingdom> kingdoms;
+        int maxAllies = competitors.stream().max(comparing(intermediateKingdom -> intermediateKingdom.allyCount())).get().allyCount();
+        kingdoms = (ArrayList<Kingdom>) competitors.stream().sorted(comparing(k -> k.allyCount())).filter(kingdom1 -> kingdom1.allyCount() == maxAllies).collect(Collectors.toList());
+        return kingdoms;
     }
 
     public String alliesDisplay() {

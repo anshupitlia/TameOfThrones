@@ -5,22 +5,31 @@ public class Priest {
     private ArrayList<Kingdom> allKingdoms = new ArrayList<>();
     private CompetingKingdoms competingKingdoms;
     private Ruler ruler;
-    public static final int WINNING_CRITERIA = 3;
+    private StringBuilder result;
+    private int electionCount;
 
     public Priest() {
         initKingdoms();
         this.competingKingdoms = new CompetingKingdoms();
         this.ruler = new Ruler();
+        this.electionCount = 0;
+        this.result = new StringBuilder();
     }
 
     public Priest(CompetingKingdoms competingKingdoms) {
         initKingdoms();
         this.competingKingdoms = competingKingdoms;
         this.ruler = new Ruler();
+        this.electionCount = 0;
+        this.result = new StringBuilder();
     }
 
     public String competitorsAlliesDisplay() {
-        return competingKingdoms.alliesDisplay();
+        String roundInfo = String.format("Results after round %d ballot count\n", electionCount);
+        StringBuilder intermediateResults = new StringBuilder();
+        intermediateResults.append(roundInfo);
+        intermediateResults.append(competingKingdoms.alliesDisplay());
+        return intermediateResults.toString();
     }
 
     public String rulerDisplay() {
@@ -33,6 +42,7 @@ public class Priest {
 
     public void conductElections(Ballot ballot) {
         Iterator<Kingdom> iterator = competingKingdoms.iterator();
+        this.electionCount++;
         while(iterator.hasNext()) {
             Kingdom competitorKingdom = iterator.next();
             for (Kingdom kingdom: allKingdoms) {
@@ -40,7 +50,29 @@ public class Priest {
                     competitorKingdom.sends(kingdom, ballot.message());
             }
         }
-        ruler = new Ruler(competingKingdoms.rulingKingdom());
+        ArrayList<Kingdom> rulingKingdoms = competingKingdoms.rulingKingdoms();
+        if (rulingKingdoms.size() == 1) {
+            result.append(competitorsAlliesDisplay());
+            ruler = new Ruler(rulingKingdoms.get(0));
+        }
+        if (rulingKingdoms.size() > 1) {
+            result.append(competitorsAlliesDisplay());
+            reconductElections(rulingKingdoms, ballot);
+        }
+    }
+
+    public String displayResult() {
+        return result.toString();
+    }
+
+    private void reconductElections(ArrayList<Kingdom> competingKingdoms, Ballot ballot) {
+        this.allKingdoms.forEach(kingdom -> kingdom.refreshAllegiance());
+        this.competingKingdoms = new CompetingKingdoms();
+        competingKingdoms.forEach(kingdom -> {
+            kingdom.refreshAllegiance();
+            this.competingKingdoms.add(kingdom);
+        });
+        conductElections(ballot);
     }
 
     private void initKingdoms() {

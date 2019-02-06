@@ -67,4 +67,14 @@ public class KingdomTest {
         air.addAlly(new Kingdom("space", "gorilla"));
         Assert.assertEquals("space", air.displayAllies());
     }
+
+    @Test
+    public void testKingdomShouldBeAbleToRefreshAllAllegianceWhenNewElections() {
+        Kingdom air = new Kingdom("air", "owl");
+        assert air.isAlly("OWL") == true;
+
+        air.refreshAllegiance();
+
+        assert air.allyCount() == 0;
+    }
 }
