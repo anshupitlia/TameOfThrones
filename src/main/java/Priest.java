@@ -42,15 +42,7 @@ public class Priest {
                     competitorKingdom.sends(kingdom, ballot.message());
             }
         }
-        ArrayList<Kingdom> rulingKingdoms = competingKingdoms.rulingKingdoms();
-        if (rulingKingdoms.size() == 1) {
-            result.append(competitorsAlliesDisplay());
-            ruler = new Ruler(rulingKingdoms.get(0));
-        }
-        if (rulingKingdoms.size() > 1) {
-            result.append(competitorsAlliesDisplay());
-            reconductElections(rulingKingdoms, ballot);
-        }
+        findRulingKingdom(ballot);
     }
 
     public String displayResult() {
@@ -65,6 +57,19 @@ public class Priest {
             this.competingKingdoms.add(kingdom);
         });
         conductElections(ballot);
+    }
+
+    private void findRulingKingdom(Ballot ballot) {
+        ArrayList<Kingdom> rulingKingdoms = competingKingdoms.rulingKingdoms();
+        int totalRulingKingdoms = rulingKingdoms.size();
+        if (totalRulingKingdoms == 1) {
+            result.append(competitorsAlliesDisplay());
+            ruler = new Ruler(rulingKingdoms.get(0));
+        }
+        if (totalRulingKingdoms > 1) {
+            result.append(competitorsAlliesDisplay());
+            reconductElections(rulingKingdoms, ballot);
+        }
     }
 
     private void initKingdoms() {
