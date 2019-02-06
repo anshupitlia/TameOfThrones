@@ -82,4 +82,17 @@ public class Kingdom {
     public int allyCount() {
         return allies.size();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Kingdom kingdom = (Kingdom) o;
+        return Objects.equals(name, kingdom.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }

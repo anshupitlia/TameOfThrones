@@ -36,7 +36,8 @@ public class Priest {
         while(iterator.hasNext()) {
             Kingdom competitorKingdom = iterator.next();
             for (Kingdom kingdom: allKingdoms) {
-                competitorKingdom.sends(kingdom, ballot.message());
+                if (!competitorKingdom.equals(kingdom))
+                    competitorKingdom.sends(kingdom, ballot.message());
             }
         }
         ruler = new Ruler(competingKingdoms.rulingKingdom());

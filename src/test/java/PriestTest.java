@@ -33,24 +33,36 @@ public class PriestTest {
         Assert.assertEquals("land, ice, air", priest.rulerAlliesDisplay());
     }
 
-//    @Test
-//    public void testPriestDecidesIceAsRulerIfItHasMaxAllies() {
-//        Kingdom ice = new Kingdom("ice", "mammoth");
-//        Kingdom air = new Kingdom("air", "owl");
-//        Kingdom space = new Kingdom("space", "gorilla");
-//        CompetingKingdoms competingKingdoms = new CompetingKingdoms().add(ice).add(space).add(air);
-//        Priest priest = new Priest(competingKingdoms);
-//
-//        when(ballot.message()).thenReturn("panda", "", "", "", "dragon", "");
-//        when(ballot.message()).thenReturn("octopus", "", "", "", "", "");
-//        when(ballot.message()).thenReturn("","", "", "", "", "");
-//        priest.conductElections(ballot);
-//
-//        Assert.assertEquals("Allies for ice: 2\nAllies for space: 1\nAllies for air: 0\n", priest.competitorsAlliesDisplay());
-//        Assert.assertEquals("ice", priest.rulerDisplay());
-//        Assert.assertEquals("land, fire", priest.rulerAlliesDisplay());
-//    }
-//
+    @Test
+    public void testPriestDecidesIceAsRulerIfItHasMaxAllies() {
+        Kingdom ice = new Kingdom("ice", "mammoth");
+        Kingdom air = new Kingdom("air", "owl");
+        Kingdom space = new Kingdom("space", "gorilla");
+        CompetingKingdoms competingKingdoms = new CompetingKingdoms().add(ice).add(space).add(air);
+        Priest priest = new Priest(competingKingdoms);
+
+        when(ballot.message()).thenReturn("panda", "", "", "", "dragon", "", "", "octopus", "", "", "", "", "","", "", "", "", "");
+        priest.conductElections(ballot);
+
+        Assert.assertEquals("Allies for ice: 2\nAllies for space: 1\nAllies for air: 0\n", priest.competitorsAlliesDisplay());
+        Assert.assertEquals("ice", priest.rulerDisplay());
+        Assert.assertEquals("land, fire", priest.rulerAlliesDisplay());
+    }
+
+    @Test
+    public void testPriestDoesNotAllowAKingdomToSendMessageToItself() {
+        Kingdom space = new Kingdom("space", "gorilla");
+        CompetingKingdoms competingKingdoms = new CompetingKingdoms().add(space);
+        Priest priest = new Priest(competingKingdoms);
+
+        when(ballot.message()).thenReturn("panda", "", "", "", "dragon", "gorilla");
+        priest.conductElections(ballot);
+
+        Assert.assertEquals("Allies for space: 2\n", priest.competitorsAlliesDisplay());
+        Assert.assertEquals("space", priest.rulerDisplay());
+        Assert.assertEquals("land, fire", priest.rulerAlliesDisplay());
+    }
+
 //
 //    @Test
 //    public void testPriestDecidesSpaceAsRulerIfHeHasFourAllies() {
