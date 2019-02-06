@@ -82,4 +82,23 @@ public class PriestTest {
         Assert.assertEquals("air", priest.rulerDisplay());
         Assert.assertEquals("fire, space", priest.rulerAlliesDisplay());
     }
+
+    @Test
+    public void testPriestReconductsElectionWhenThereIsATieWithZeroAllies() {
+        Kingdom land = new Kingdom("land", "panda");
+        Kingdom air = new Kingdom("air", "owl");
+        CompetingKingdoms competingKingdoms = new CompetingKingdoms().add(land).add(air);
+        Priest priest = new Priest(competingKingdoms);
+
+        when(ballot.message()).thenReturn("", "", "", "", "", "", "", "", "", "", "octopus", "", "", "", "","", "", "", "dragon", "gorilla");
+        priest.conductElections(ballot);
+        Assert.assertEquals("Results after round 1 ballot count\n" +
+                "Allies for land: 0\n" +
+                "Allies for air: 0\n" +
+                "Results after round 2 ballot count\n" +
+                "Allies for land: 1\n" +
+                "Allies for air: 2\n", priest.displayResult());
+        Assert.assertEquals("air", priest.rulerDisplay());
+        Assert.assertEquals("fire, space", priest.rulerAlliesDisplay());
+    }
 }
